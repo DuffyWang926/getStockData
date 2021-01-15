@@ -32,7 +32,7 @@ def buyYaoCai(code, isCash, stockNum):
     logInPwd = getPwd('yaoCai')['logInPwd']
     driver.find_elements_by_class_name('android.widget.EditText')[1].send_keys(logInPwd)
     driver.find_element_by_id('com.brightsmart.android.etnet:id/login').click()
-    sleep(5)
+    sleep(10)
     ipoPath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RadioGroup/android.widget.RadioButton[4]'
     driver.find_element_by_xpath(ipoPath).click()
     # driver.find_element_by_android_uiautomator('new UiSelector().text("交易")').click()
@@ -87,4 +87,4 @@ def buyYaoCai(code, isCash, stockNum):
     # numPath = 'new UiSelector().textContains("%d")'%(stockNum)
     # driver.find_element_by_android_uiautomator(numPath).click()
     # sleep(1)
-    # driver.quit()
+    driver.quit()

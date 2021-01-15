@@ -24,12 +24,17 @@ def buyZhangLe(code, isCash, stockNum):
     sleep(3)
     driver.launch_app(); 
     sleep(6)
+    if isExist(driver,'com.lphtsccft.zlqqt2:id/pending_open'):
+       driver.find_element_by_id('com.lphtsccft.zlqqt2:id/pending_open').click()
+       sleep(1)
+
     driver.find_element_by_id('com.lphtsccft.zlqqt2:id/main_account').click()
     sleep(1)
     path = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.widget.ImageView[2]'
     driver.find_element_by_xpath(path).click()
     sleep(1)
     driver.find_element_by_android_uiautomator('new UiSelector().text("打新股")').click()
+    sleep(1)
 
     
     # driver.find_element_by_android_uiautomator('new UiSelector().text("交易")').click()
@@ -55,4 +60,4 @@ def buyZhangLe(code, isCash, stockNum):
     # numPath = 'new UiSelector().textContains("%d")'%(stockNum)
     # driver.find_element_by_android_uiautomator(numPath).click()
     # sleep(1)
-    # driver.quit()
+    driver.quit()

@@ -26,8 +26,6 @@ def buyDongFang(code, isCash, stockNum):
     sleep(5)
     driver.find_element_by_android_uiautomator('new UiSelector().text("交易")').click()
     sleep(5)
-    print(driver.contexts)
-    print(driver.page_source)
     # driver.find_element_by_android_uiautomator('new UiSelector().text("已有交易账户，马上登录")').click()
     path = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RelativeLayout[2]/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]'
     driver.find_element_by_xpath(path).click()
@@ -39,7 +37,7 @@ def buyDongFang(code, isCash, stockNum):
     sleep(1)
     agreePath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout[3]/android.widget.LinearLayout/android.view.View[2]'
     driver.find_element_by_xpath(agreePath).click()
-    sleep(5)
+    sleep(6)
     driver.find_element_by_android_uiautomator('new UiSelector().text("新股申购")').click()
     sleep(5)
     

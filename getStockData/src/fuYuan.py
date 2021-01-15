@@ -18,18 +18,23 @@ def buyFuYuan(code, isCash, stockNum):
         'appPackage':'com.sunline.android.sunline',
         'noReset':True,
         'appActivity':'.DefaultAlias',
+        'automationName':'uiautomator2'
     }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     driver.close_app();            
     sleep(3)
     driver.launch_app(); 
     sleep(5)
+    if isExist(driver,'com.sunline.android.sunline:id/cancel'):
+        driver.find_element_by_id('com.sunline.android.sunline:id/cancel').click()
+        sleep(1)
+
     driver.find_element_by_android_uiautomator('new UiSelector().text("交易")').click()
     sleep(2)
     driver.find_element_by_android_uiautomator('new UiSelector().text("新股认购")').click()
     sleep(1)
-    # driver.find_element_by_android_uiautomator('new UiSelector().text("可认购")').click()
-    # sleep(1)
+    driver.find_element_by_android_uiautomator('new UiSelector().text("可认购")').click()
+    sleep(1)
 
     # buyPath='//android.widget.TextView[contains(@text,"(' + code + '.HK)")]/parent::*/following-sibling::android.widget.LinearLayout[1]/android.widget.RelativeLayout/android.widget.TextView'
     # driver.find_element_by_xpath(buyPath).click()
@@ -40,4 +45,4 @@ def buyFuYuan(code, isCash, stockNum):
     # numPath = 'new UiSelector().textContains("%d")'%(stockNum)
     # driver.find_element_by_android_uiautomator(numPath).click()
     # sleep(1)
-    # driver.quit()
+    driver.quit()

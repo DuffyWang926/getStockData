@@ -30,8 +30,13 @@ def buyTiger(code, isCash, stockNum):
         driver.find_element_by_id('com.tigerbrokers.stock:id/btn_cancel').click()
         sleep(1)
     driver.find_element_by_android_uiautomator('new UiSelector().text("IPO")').click()
-    sleep(1)
-    driver.find_element_by_android_uiautomator('new UiSelector().text("港股")').click()
+    sleep(3)
+    hkStockPath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View[2]'
+    # print(driver.contexts)
+    # print(driver.page_source)
+    
+    driver.find_element_by_xpath(hkStockPath).click()
+    # driver.find_element_by_android_uiautomator('new UiSelector().text("港股")').click()
     sleep(1)
 
     # buyPath='//android.widget.TextView[contains(@text,"(' + code + '.HK)")]/parent::*/following-sibling::android.widget.LinearLayout[1]/android.widget.RelativeLayout/android.widget.TextView'
@@ -43,4 +48,4 @@ def buyTiger(code, isCash, stockNum):
     # numPath = 'new UiSelector().textContains("%d")'%(stockNum)
     # driver.find_element_by_android_uiautomator(numPath).click()
     # sleep(1)
-    # driver.quit()
+    driver.quit()

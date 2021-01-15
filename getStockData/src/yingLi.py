@@ -53,4 +53,4 @@ def buyYingLi(code, isCash, stockNum):
     # numPath = 'new UiSelector().textContains("%d")'%(stockNum)
     # driver.find_element_by_android_uiautomator(numPath).click()
     # sleep(1)
-    # driver.quit()
+    driver.quit()
