@@ -15,7 +15,16 @@ def getPwd(name):
             'logInPwd':'Wef1991926',
             # 'tradePwd':'Wef19919',
         },
-        
+        'zunJia':{
+            'account':'62257658',
+            # 'logInPwd':'Wef1991926',
+            'tradePwd':'Wef1991926',
+        },
+        'fuTu':{
+            'account':'17994525',
+            'logInPwd':'Wef1991926',
+            'tradePwd':'324872',
+        },
         
     }
     result = initData[(name)]

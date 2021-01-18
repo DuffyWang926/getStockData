@@ -4,6 +4,7 @@ import unittest
 from appium import webdriver
 from utils.verify import isExist
 from utils.verify import numFromStr
+from src.getPwdData import getPwd
 
 
 # driver.find_element_by_id('android:id/content')
@@ -40,24 +41,23 @@ def buyFuTu(param):
     buyPath='//*[@text="' + code + '"]/parent::*/parent::*/following-sibling::android.widget.RelativeLayout/android.widget.TextView'
     if isExist(driver,2,buyPath):
         driver.find_element_by_xpath(buyPath).click()
-        sleep(3)
+        sleep(4)
         print(driver.page_source)
         print(driver.contexts)
-        # if not isCash:
         financeTimePath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]/android.view.View[4]'
         financingPath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[3]/android.view.View[26]/android.view.View[5]/android.view.View/android.view.View[5]/android.view.View'
-        if isExist(driver,2,financingPath):
-            if isCash:
-                financingBtn = driver.find_element_by_xpath(financingPath)
-                flag = financingBtn.get_attribute('checkable')
-                if flag:
+        cashPath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[3]/android.view.View[26]/android.view.View[4]/android.view.View/android.view.View[3]/android.view.View'
+        # financingDisablePath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[3]/android.view.View[26]/android.view.View[5]/android.view.View/android.view.View[4]/android.view.View'
+        if isExist(driver,2,cashPath):
+            if not isCash:
+                if isExist(driver,2,financingPath):
+                    financingBtn = driver.find_element_by_xpath(financingPath)
                     financingBtn.click()
                     sleep(1)
 
             else:
-                cashPath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[3]/android.view.View[26]/android.view.View[4]/android.view.View/android.view.View[3]/android.view.View'
                 cashBtn = driver.find_element_by_xpath(cashPath)
-                cashFlag = financingBtn.get_attribute('checked')
+                cashFlag = cashBtn.get_attribute('checked')
                 if not cashFlag:
                     cashBtn.click()
                     sleep(1)
@@ -66,7 +66,6 @@ def buyFuTu(param):
             driver.find_element_by_xpath(otherPath).click()
             sleep(1)
             num = str(4 + 2*numFromStr(stockNumVal))
-            print(num)
             if isCashAll:
                 cashAllPath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[3]/android.view.View[25]/android.view.View[1]/android.view.View/android.view.View[4]/android.view.View[2]'
                 driver.find_element_by_xpath(cashAllPath).click()
@@ -81,15 +80,29 @@ def buyFuTu(param):
             agreePath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[34]/android.view.View[3]/android.view.View/android.view.View[1]'
             driver.find_element_by_xpath(agreePath).click()
             sleep(1)
-            # finishPath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[35]/android.view.View[2]'
+            finishPath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[35]/android.view.View[2]'
             # finishBtn = driver.find_element_by_xpath(finishPath)
-            # print(finishBtn.get_attribute('clickable'))
-            # driver.find_element_by_xpath(finishPath).click()
+            driver.find_element_by_xpath(finishPath).click()
+            sleep(2)
+            print(driver.page_source)
+            pwd = getPwd('fuTu')['tradePwd']
+            print(pwd[0])
+            os.system('adb shell ime set com.sohu.inputmethod.sogou.xiaomi/.SogouIME')
+            # os.system('adb shell ime set io.appium.settings/.UnicodeIME')
+            # os.system('adb shell ime set com.iflytek.inputmethod.miui/.FlyIME')
+            # os.system('adb shell ime set com.baidu.input_mi/.ImeService')
+            
+            pwdPatha = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[35]/android.view.View[1]/android.view.View[2]/android.view.View/android.widget.ListView/android.view.View[1]'
+            driver.find_element_by_xpath(pwdPatha).click()
+            driver.press_keycode(144)
+            # driver.find_element_by_xpath(pwdPatha).set_value(3)
+            # pwdPathb = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[35]/android.view.View[1]/android.view.View[2]/android.view.View/android.widget.ListView/android.view.View[2]'
+            # driver.find_element_by_xpath(pwdPathb).click()
+            # driver.press_keycode(10)
         elif isExist(driver,2,financeTimePath):
             financingTime = driver.find_element_by_xpath(financeTimePath)
             text = financingTime.get_attribute('text')
             print(text)
-
 
 
     sleep(5)

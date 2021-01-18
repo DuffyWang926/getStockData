@@ -3,6 +3,7 @@ from time import sleep
 import unittest
 from appium import webdriver
 from utils.verify import isExist
+from src.getPwdData import getPwd
 
 # driver.find_element_by_id('android:id/content')
 # driver.find_element_by_class_name('android.view.View')
@@ -58,8 +59,11 @@ def buyZunJia(param):
             if isExist(driver,1,numPath):
                 driver.find_element_by_android_uiautomator(numPath).click()
                 sleep(1)
-        # driver.find_element_by_id('com.juniorchina.jcstock:id/tv_ok').click()
-        driver.find_element_by_id('com.juniorchina.jcstock:id/tv_cancel').click()
+        driver.find_element_by_id('com.juniorchina.jcstock:id/tv_ok').click()
+        # driver.find_element_by_id('com.juniorchina.jcstock:id/tv_cancel').click()
+    pwd = getPwd('zunJia')['tradePwd']
+    driver.find_element_by_id('com.juniorchina.jcstock:id/et_password').send_keys(pwd)
+    driver.find_element_by_id('com.juniorchina.jcstock:id/layout_commit').click()
 
     sleep(3)
     driver.quit()

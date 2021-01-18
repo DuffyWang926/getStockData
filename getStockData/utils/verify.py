@@ -18,6 +18,7 @@ def isExist(driver, type, value):
             driver.find_element_by_id(value)
     except Exception as e:
         print(e)
+        print(value)
         return False
     else:
         return True
