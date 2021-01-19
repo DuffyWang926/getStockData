@@ -10,7 +10,7 @@ from setting import getSetting
 # driver.find_element_by_xpath('//android.view.View[contains(@text, "去认购")]')
 # driver.find_element_by_android_uiautomator('new UiSelector().text("(01490.HK)")')
 # driver.find_element_by_android_uiautomator('new UiSelector().textContains("4000")')
-def buyYaoCai(param):
+def buyYouYu(param):
     code = param['code']
     isCash = param['isCash']
     stockNumVal = param['numVal']
@@ -18,36 +18,30 @@ def buyYaoCai(param):
     isCashAll = param['isCashAll']
     settingIndex = param['setIndex']
     settingData = getSetting(settingIndex)
-    settingData['appPackage'] = 'com.brightsmart.android.etnet'
-    settingData['appActivity'] = 'com.etnet.android.iq.Welcome'
+    settingData['appPackage'] = 'com.ruifusoft.finance.app'
+    settingData['appActivity'] = 'com.ruifusoft.ui.SplashActivity'
     desired_caps = settingData
-    # desired_caps = {
-    #     'platformName':'Android',
-    #     'platformVersion':'10',
-    #     'deviceName':'2214c691',
-    #     'appPackage':'com.brightsmart.android.etnet',
-    #     'noReset':True,
-    #     'appActivity':'com.etnet.android.iq.Welcome',
-    # }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     driver.close_app();            
     sleep(3)
     driver.launch_app(); 
     sleep(5)
-    tradePath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RadioGroup/android.widget.RadioButton[5]'
-    driver.find_element_by_xpath(tradePath).click()
+    driver.find_element_by_android_uiautomator('new UiSelector().text("我的")').click()
     sleep(1)
-    account = getPwd('yaoCai')['account']
-    driver.find_elements_by_class_name('android.widget.EditText')[0].send_keys(account)
-    logInPwd = getPwd('yaoCai')['logInPwd']
-    driver.find_elements_by_class_name('android.widget.EditText')[1].send_keys(logInPwd)
-    driver.find_element_by_id('com.brightsmart.android.etnet:id/login').click()
-    sleep(10)
-    ipoPath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RadioGroup/android.widget.RadioButton[4]'
-    driver.find_element_by_xpath(ipoPath).click()
-    # driver.find_element_by_android_uiautomator('new UiSelector().text("交易")').click()
-    # sleep(5)
-    sleep(5)
+    driver.find_element_by_android_uiautomator('new UiSelector().text("认购新股")').click()
+    sleep(1)
+    # tradePath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RadioGroup/android.widget.RadioButton[5]'
+    # driver.find_element_by_xpath(tradePath).click()
+    # sleep(1)
+    # account = getPwd('yaoCai')['account']
+    # driver.find_elements_by_class_name('android.widget.EditText')[0].send_keys(account)
+    # logInPwd = getPwd('yaoCai')['logInPwd']
+    # driver.find_elements_by_class_name('android.widget.EditText')[1].send_keys(logInPwd)
+    # driver.find_element_by_id('com.brightsmart.android.etnet:id/login').click()
+    # sleep(10)
+    # ipoPath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RadioGroup/android.widget.RadioButton[4]'
+    # driver.find_element_by_xpath(ipoPath).click()
+    
     
     # path = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RelativeLayout[2]/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]'
     # driver.find_element_by_xpath(path).click()
@@ -96,5 +90,5 @@ def buyYaoCai(param):
 
     # numPath = 'new UiSelector().textContains("%d")'%(stockNum)
     # driver.find_element_by_android_uiautomator(numPath).click()
-    # sleep(1)
-    driver.quit()
+    sleep(10)
+    # driver.quit()

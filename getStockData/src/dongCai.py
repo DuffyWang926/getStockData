@@ -4,27 +4,37 @@ import unittest
 from appium import webdriver
 from src.getPwdData import getPwd
 from utils.verify import isExist
-
+from setting import getSetting
 # driver.find_element_by_id('android:id/content')
 # driver.find_element_by_class_name('android.view.View')
 # driver.find_element_by_xpath('//android.view.View[contains(@text, "去认购")]')
 # driver.find_element_by_android_uiautomator('new UiSelector().text("(01490.HK)")')
 # driver.find_element_by_android_uiautomator('new UiSelector().textContains("4000")')
-def buyDongCai(code, isCash, stockNum):
-    desired_caps = {
-        'platformName':'Android',
-        'platformVersion':'10',
-        'deviceName':'2214c691',
-        'appPackage':'com.eastmoney.android.lead',
-        'noReset':True,
-        'appActivity':'com.eastmoney.android.berlin.activity.MainActivity',
-    }
+def buyDongCai(param):
+    code = param['code']
+    isCash = param['isCash']
+    stockNumVal = param['numVal']
+    isFinancingAll = param['isFinancingAll']
+    isCashAll = param['isCashAll']
+    settingIndex = param['setIndex']
+    settingData = getSetting(settingIndex)
+    settingData['appPackage'] = 'com.eastmoney.android.lead'
+    settingData['appActivity'] = 'com.eastmoney.android.berlin.activity.MainActivity'
+    desired_caps = settingData
+    # desired_caps = {
+    #     'platformName':'Android',
+    #     'platformVersion':'10',
+    #     'deviceName':'2214c691',
+    #     'appPackage':'com.eastmoney.android.lead',
+    #     'noReset':True,
+    #     'appActivity':'com.eastmoney.android.berlin.activity.MainActivity',
+    # }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     driver.close_app();            
     sleep(3)
     driver.launch_app(); 
     sleep(5)
-    if isExist(driver,'com.eastmoney.android.lead:id/riv_card') :
+    if isExist(driver,4,'com.eastmoney.android.lead:id/riv_card') :
         driver.find_element_by_id('com.eastmoney.android.lead:id/riv_card').click()
         sleep(1)
         driver.find_element_by_android_uiautomator('new UiSelector().text("关闭")').click()

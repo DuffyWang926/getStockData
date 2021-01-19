@@ -5,6 +5,7 @@ from appium import webdriver
 from src.getPwdData import getPwd
 from utils.verify import isExist
 from utils.verify import numFromStr
+from setting import getSetting
 
 # driver.find_element_by_id('android:id/content')
 # driver.find_element_by_class_name('android.view.View')
@@ -18,14 +19,20 @@ def buyHuaShengTong(param):
     stockNumVal = param['numVal']
     isFinancingAll = param['isFinancingAll']
     isCashAll = param['isCashAll']
-    desired_caps = {
-        'platformName':'Android',
-        'platformVersion':'10',
-        'deviceName':'2214c691',
-        'appPackage':'com.huasheng.stock',
-        'noReset':True,
-        'appActivity':'com.hstong.app.launch.ui.Loading',
-    }
+    settingIndex = param['setIndex']
+    settingData = getSetting(settingIndex)
+    settingData['appPackage'] = 'com.huasheng.stock'
+    settingData['appActivity'] = 'com.hstong.app.launch.ui.Loading'
+    desired_caps = settingData
+
+    # desired_caps = {
+    #     'platformName':'Android',
+    #     'platformVersion':'10',
+    #     'deviceName':'2214c691',
+    #     'appPackage':'com.huasheng.stock',
+    #     'noReset':True,
+    #     'appActivity':'com.hstong.app.launch.ui.Loading',
+    # }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     driver.close_app();            
     sleep(3)

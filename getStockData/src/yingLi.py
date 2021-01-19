@@ -4,21 +4,31 @@ import unittest
 from appium import webdriver
 from src.getPwdData import getPwd
 from utils.verify import isExist
-
+from setting import getSetting
 # driver.find_element_by_id('android:id/content')
 # driver.find_element_by_class_name('android.view.View')
 # driver.find_element_by_xpath('//android.view.View[contains(@text, "去认购")]')
 # driver.find_element_by_android_uiautomator('new UiSelector().text("(01490.HK)")')
 # driver.find_element_by_android_uiautomator('new UiSelector().textContains("4000")')
-def buyYingLi(code, isCash, stockNum):
-    desired_caps = {
-        'platformName':'Android',
-        'platformVersion':'10',
-        'deviceName':'2214c691',
-        'appPackage':'com.yxzq.stock',
-        'noReset':True,
-        'appActivity':'.enter.LauncherActivity',
-    }
+def buyYingLi(param):
+    code = param['code']
+    isCash = param['isCash']
+    stockNumVal = param['numVal']
+    isFinancingAll = param['isFinancingAll']
+    isCashAll = param['isCashAll']
+    settingIndex = param['setIndex']
+    settingData = getSetting(settingIndex)
+    settingData['appPackage'] = 'com.yxzq.stock'
+    settingData['appActivity'] = '.enter.LauncherActivity'
+    desired_caps = settingData
+    # desired_caps = {
+    #     'platformName':'Android',
+    #     'platformVersion':'10',
+    #     'deviceName':'2214c691',
+    #     'appPackage':'com.yxzq.stock',
+    #     'noReset':True,
+    #     'appActivity':'.enter.LauncherActivity',
+    # }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     driver.close_app();            
     sleep(3)

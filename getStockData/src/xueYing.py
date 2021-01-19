@@ -10,7 +10,7 @@ from setting import getSetting
 # driver.find_element_by_xpath('//android.view.View[contains(@text, "去认购")]')
 # driver.find_element_by_android_uiautomator('new UiSelector().text("(01490.HK)")')
 # driver.find_element_by_android_uiautomator('new UiSelector().textContains("4000")')
-def buyJiaTou(param):
+def buyXueYing(param):
     code = param['code']
     isCash = param['isCash']
     stockNumVal = param['numVal']
@@ -18,26 +18,39 @@ def buyJiaTou(param):
     isCashAll = param['isCashAll']
     settingIndex = param['setIndex']
     settingData = getSetting(settingIndex)
-    settingData['appPackage'] = 'com.kaisa.kaisafinstock'
-    settingData['appActivity'] = '.MainActivity'
+    settingData['appPackage'] = 'com.snowballfinance.android'
+    settingData['appActivity'] = 'com.xueqiu.android.view.WelcomeActivityAlias'
     desired_caps = settingData
-    # desired_caps = {
-    #     'platformName':'Android',
-    #     'platformVersion':'10',
-    #     'deviceName':'2214c691',
-    #     'appPackage':'com.kaisa.kaisafinstock',
-    #     'noReset':True,
-    #     'appActivity':'.MainActivity',
-    # }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     driver.close_app();            
     sleep(3)
     driver.launch_app(); 
     sleep(5)
-    driver.find_element_by_android_uiautomator('new UiSelector().text("首页")').click()
-    sleep(2)
-    driver.find_element_by_android_uiautomator('new UiSelector().text("新股中心")').click()
+    driver.find_element_by_android_uiautomator('new UiSelector().text("行情")').click()
     sleep(1)
+    driver.find_element_by_android_uiautomator('new UiSelector().text("港股")').click()
+    sleep(1)
+    driver.find_element_by_android_uiautomator('new UiSelector().text("新股认购")').click()
+    sleep(1)
+    
+    # path = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RelativeLayout[2]/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[3]'
+    # driver.find_element_by_xpath(path).click()
+    # sleep(1)
+    # pwd = getPwd('dongFang')['tradePwd']
+    # driver.find_elements_by_class_name('android.widget.EditText')[1].send_keys(pwd)
+    # loginPath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout[7]/android.view.View'
+    # driver.find_element_by_xpath(loginPath).click()
+    # sleep(1)
+    # agreePath = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout[3]/android.widget.LinearLayout/android.view.View[2]'
+    # driver.find_element_by_xpath(agreePath).click()
+    # sleep(5)
+    # driver.find_element_by_android_uiautomator('new UiSelector().text("新股申购")').click()
+    # sleep(5)
+    
+    # driver.find_element_by_xpath('//*[contains(@text, "马上登录")]').click()
+    # sleep(1)
+    # driver.find_element_by_android_uiautomator('new UiSelector().text("新股中心")').click()
+    # sleep(1)
     # driver.find_element_by_id('com.lphtsccft.zlqqt2:id/main_account').click()
     # sleep(1)
     # path = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.widget.ImageView[2]'
@@ -67,5 +80,5 @@ def buyJiaTou(param):
 
     # numPath = 'new UiSelector().textContains("%d")'%(stockNum)
     # driver.find_element_by_android_uiautomator(numPath).click()
-    # sleep(1)
-    driver.quit()
+    sleep(10)
+    # driver.quit()
