@@ -5,6 +5,7 @@ from appium import webdriver
 from src.getPwdData import getPwd
 from utils.verify import isExist
 from setting import getSetting
+from mysql.initDB import initMysql
 # driver.find_element_by_id('android:id/content')
 # driver.find_element_by_class_name('android.view.View')
 # driver.find_element_by_xpath('//android.view.View[contains(@text, "去认购")]')
@@ -55,3 +56,15 @@ def buyAiDe(param):
     # driver.find_element_by_android_uiautomator(numPath).click()
     # sleep(1)
     driver.quit()
+
+def getAiDeProperty(param):
+    settingIndex = param['setIndex']
+    settingData = getSetting(settingIndex)
+    settingData['appPackage'] = 'io.newtype.eddid.app'
+    settingData['appActivity'] = 'com.eddid.home.ui.activity.LauncherActivity'
+    desired_caps = settingData
+    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    driver.close_app();            
+    sleep(3)
+    driver.launch_app(); 
+    sleep(6)

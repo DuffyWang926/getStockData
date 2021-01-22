@@ -1,8 +1,8 @@
 import asyncio
-from src.zunJia import buyZunJia
-from src.fuTu import buyFuTu
-from src.huaShengTong import buyHuaShengTong
-from src.aiDe import buyAiDe
+from src.zunJia import buyZunJia, getZunJiaProperty
+from src.fuTu import buyFuTu, getFuTuProperty
+from src.huaShengTong import buyHuaShengTong, getHuaShengTongProperty
+from src.aiDe import buyAiDe, getAiDeProperty
 from src.fuYuan import buyFuYuan
 from src.tiger import buyTiger
 from src.dongCai import buyDongCai
@@ -24,6 +24,8 @@ from src.xueYing import buyXueYing
 from src.ruiFeng import buyRuiFeng
 
 from src.test import tryTest
+from mysql.initDB import initMysql
+from src.mainland.zhaoShang import operateZhaoShang
 from time import sleep
 def  buyStock():
     
@@ -62,13 +64,35 @@ def  buyStock():
     # buyRuiFeng(param)
 
 
-    tryTest(param)
+    # tryTest(param)
     
+def operateMainland():
+    param = {
+        'setIndex':0,
+        'code':'06668',
+        'num':1000,
+        'isCash':True,
+        'isCashAll':False,
+        'numVal':'1手',
+        'isFinancingAll':False,
+    }
+    operateZhaoShang(param)
+
+def getProperty():
+    param = {
+        'setIndex':0,
+    }
+    # getZunJiaProperty(param)
+    # getFuTuProperty(param)
+    # getHuaShengTongProperty(param)
+    getAiDeProperty(param)
     
-    
+    # initMysql()
 
 if __name__ == '__main__':
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(buyStock())
     # loop.close()
-    buyStock()
+    # buyStock()
+    # operateMainland()
+    getProperty()

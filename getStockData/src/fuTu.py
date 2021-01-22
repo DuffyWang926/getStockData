@@ -5,8 +5,8 @@ from appium import webdriver
 from utils.verify import isExist
 from utils.verify import numFromStr
 from src.getPwdData import getPwd
-
-
+from setting import getSetting
+from mysql.initDB import initMysql
 # driver.find_element_by_id('android:id/content')
 # driver.find_element_by_class_name('android.view.View')
 # driver.find_element_by_xpath('//android.view.View[contains(@text, "去认购")]')
@@ -18,22 +18,31 @@ from src.getPwdData import getPwd
 def buyFuTu(param):
     code = param['code']
     isCash = param['isCash']
+    # stockNum = param['num']
     stockNumVal = param['numVal']
     # isFinancingAll = param['isFinancingAll']
     isCashAll = param['isCashAll']
-    desired_caps = {
-        'platformName':'Android',
-        'platformVersion':'10',
-        'deviceName':'2214c691',
-        'appPackage':'cn.futu.trader',
-        'noReset':True,
-        'appActivity':'.launch.activity.LaunchActivity'
-    }
+    settingIndex = param['setIndex']
+    settingData = getSetting(settingIndex)
+    settingData['appPackage'] = 'cn.futu.trader'
+    settingData['appActivity'] = '.launch.activity.LaunchActivity'
+    desired_caps = settingData
+    # desired_caps = {
+    #     'platformName':'Android',
+    #     'platformVersion':'10',
+    #     'deviceName':'2214c691',
+    #     'appPackage':'cn.futu.trader',
+    #     'noReset':True,
+    #     'appActivity':'.launch.activity.LaunchActivity'
+    # }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     driver.close_app();            
     sleep(3)
     driver.launch_app(); 
     sleep(5)
+    closeId = 'cn.futu.trader:id/close_popup_ad_view'
+    if isExist(driver, 4, closeId):
+        driver.find_element_by_id(closeId).click()
     driver.find_element_by_android_uiautomator('new UiSelector().text("交易")').click()
     sleep(1)
     driver.find_element_by_android_uiautomator('new UiSelector().text("新股认购")').click()
@@ -107,3 +116,33 @@ def buyFuTu(param):
 
     sleep(5)
     driver.quit()
+
+def getFuTuProperty(param):
+    settingIndex = param['setIndex']
+    settingData = getSetting(settingIndex)
+    settingData['appPackage'] = 'cn.futu.trader'
+    settingData['appActivity'] = '.launch.activity.LaunchActivity'
+    desired_caps = settingData
+    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    driver.close_app();            
+    sleep(3)
+    driver.launch_app(); 
+    sleep(5)
+    closeId = 'cn.futu.trader:id/close_popup_ad_view'
+    if isExist(driver, 4, closeId):
+        driver.find_element_by_id(closeId).click()
+    driver.find_element_by_android_uiautomator('new UiSelector().text("今日盈亏")').click()
+    sleep(1)
+    allPath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.TextView'
+    allNum = driver.find_element_by_xpath(allPath).text
+    availablePath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.LinearLayout/android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.TextView'
+    availableNum = driver.find_element_by_xpath(availablePath).text
+    param = {
+        'method':0,
+        'tableName':'fuTu0',
+        'allNum':allNum,
+        'availableNum':availableNum,
+    }
+    initMysql(param)
+    driver.quit()
+    
